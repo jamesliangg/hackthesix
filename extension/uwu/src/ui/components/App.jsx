@@ -37,7 +37,25 @@ const App = ({ addOnUISdk, sandboxProxy }) => {
                 });
 
                 if (serverResponse.ok) {
-                    console.log('File successfully uploaded');
+                    const jsonResponse = await serverResponse.json();
+                    console.log('Response message:', jsonResponse.message);
+                    console.log('File URL:', jsonResponse.fileUrl);
+
+                    // Add image via URL to the current page
+                    const image = new Image();
+                    image.src = jsonResponse.fileUrl;
+                    image.onload = async () => {
+                        try {
+                            const blob = await fetch(jsonResponse.fileUrl).then((response) => response.blob());
+                            await addOnUISdk.app.document.addImage(blob);
+                            console.log("Image added to the document successfully.");
+                        } catch (error) {
+                            console.error("Failed to add the image to the page.", error);
+                        }
+                    };
+                    image.onerror = (error) => {
+                        console.error("Failed to load image from URL.", error);
+                    };
                 } else {
                     console.error('Failed to upload file');
                 }
@@ -48,6 +66,7 @@ const App = ({ addOnUISdk, sandboxProxy }) => {
             console.error('Error creating renditions:', error);
         }
     };
+
 
     const displayPreview = async () => {
         try {
@@ -78,7 +97,7 @@ const App = ({ addOnUISdk, sandboxProxy }) => {
                     Create Rectangle
                 </Button>
                 <Button size="m" onClick={handleDownload}>
-                    Prepare Download
+                    Send to Server
                 </Button>
                 <Button size="m" onClick={displayPreview}>
                     Display Preview

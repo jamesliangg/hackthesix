@@ -30,7 +30,11 @@ if (!fs.existsSync('uploads')) {
 // Handle file upload
 app.post('/upload', upload.single('file'), (req, res) => {
     if (req.file) {
-        res.status(200).send('File uploaded successfully');
+        const fileUrl = `https://api.memegen.link/images/pigeon/Engineer/_/You_call_this_contrast~q.png?style=https://i.imgur.com/W0NXFpQ.png`;
+        res.status(200).json({
+            message: 'File uploaded successfully',
+            fileUrl: fileUrl
+        });
     } else {
         res.status(400).send('No file uploaded');
     }
