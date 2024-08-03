@@ -58,7 +58,7 @@ Use the stairs. Your father`
 const sleep = (ms = 2000) => new Promise((r) => setTimeout(r, ms));
 
 // * Global variables
-let videoURL = "https://www.youtube.com/watch?v=RbVMiu4ubT0";
+let videoURL = "https://www.youtube.com/watch?v=kqFxhfSKZdM";
 
 /**
  * prints confirmation that process has begun
@@ -75,7 +75,7 @@ async function startVideoEdit(transcript, name) {
     // TODO : convert all text to speech
     console.log(`Converting text to speech`);
     console.log("");
-    // await convertTextToSpeech(transcript, name);
+    await convertTextToSpeech(transcript.strings[0], name);
     await sleep();
 
     // * downloads video from youtube for background

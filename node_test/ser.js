@@ -8,33 +8,38 @@ import { startVideoEdit} from "./bokbok/main.js";
 const app = express();
 const port = 5002;
 
-const bee_movie = `I love this incorporating
-an amusement park into our regular day.
-BARRY:
-I guess that's why they say we don't need vacations.
-(Barry parallel parks the car and together they fly over the graduating
-students)
-Boy, quite a bit of pomp...
-under the circumstances.
-(Barry and Adam sit down and put on their hats)
- :
-- Well, Adam, today we are men.
-
+const bee_movie = `And begins your career
+at Honex Industries!
 ADAM:
-- We are!
+Will we pick our job today?
+(Adam and Barry get into a tour bus)
 BARRY=
-- Bee-men.
-=ADAM=
-- Amen!
-BARRY AND ADAM:
-Hallelujah!
-(Barry and Adam both have a happy spasm)
+I heard it's just orientation.
+(Tour buses rise out of the ground and the students are automatically
+loaded into the buses)
+TOUR GUIDE:
+Heads up! Here we go.
+
 ANNOUNCER:
-Students, faculty, distinguished bees,
+Keep your hands and antennas
+inside the tram at all times.
+BARRY:
+- Wonder what it'll be like?
+ADAM:
+- A little scary.
+TOUR GUIDE==
+Welcome to Honex,
+a division of Honesco
  :
-please welcome Dean Buzzwell.
-DEAN BUZZWELL:
-Welcome, New Hive Oity`
+and a part of the Hexagon Group.
+Barry:
+This is it!
+BARRY AND ADAM:
+Wow.
+BARRY:
+Wow.
+(The bus drives down a road an on either side are the Bee's massive
+complicated Honey-making machines)`
 
 // Enable CORS
 app.use(cors());
@@ -86,7 +91,7 @@ app.post('/upload', upload.single('file'), async (req, res) => {
         let plainTextStrings = {
             strings: [bee_movie],
         };
-        let fileNames = ["bee2"];
+        let fileNames = ["uwuwu"];
         startVideoEdit(plainTextStrings, fileNames);
         res.status(200).json({
             message: 'File uploaded successfully',
