@@ -62,7 +62,7 @@ let videoURL = "https://www.youtube.com/watch?v=RbVMiu4ubT0";
 let plainTextStrings = {
     strings: [bee_movie],
 };
-let fileNames = ["bee"];
+let fileNames = ["bee2"];
 
 /**
  * prints confirmation that process has begun
@@ -79,7 +79,7 @@ async function startVideoEdit() {
     // TODO : convert all text to speech
     console.log(`Converting text to speech`);
     console.log("");
-    await convertTextToSpeech(plainTextStrings.strings[0], "bee");
+    // await convertTextToSpeech(plainTextStrings.strings[0], "bee");
     await sleep();
 
     // * downloads video from youtube for background
