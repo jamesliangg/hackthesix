@@ -2,20 +2,19 @@ const fs = require("fs");
 const path = require("path");
 const openai = require("openai");
 
-// Get the design as a PNG
-
-const pathToDesign = path.join(process.env.HOME, "Desktop", "example1.png");
-const encodedDesign = fs.readFileSync(pathToDesign, { encoding: "base64" });
-
-const pathToMeme = path.join(process.env.HOME, "Desktop", "meme.png");
-const encodedMeme = fs.readFileSync(pathToMeme, { encoding: "base64" });
-
 const robot = new openai({
   apiKey: "",
 });
 
+/* ------------------------ Take the design as a PNG ------------------------ */
+
+const pathToDesign = path.join(process.env.HOME, "Desktop", "example.png");
+const encodedDesign = fs.readFileSync(pathToDesign, { encoding: "base64" });
+
+/* ------------------------------ Main function ----------------------------- */
+
 async function main() {
-  // Identify issues
+  /* --------------------- Ask GPT for Issue and Location --------------------- */
 
   const response = await robot.chat.completions.create({
     model: "gpt-4o",
@@ -44,12 +43,14 @@ async function main() {
             - Inconsistent icons
             - Poor cropping
 
-            Attached is the original design & the updated version of the design. Pay close attention to the changes made between the designs.
+            Attached is the design.
             
-            Look at the list of issues provided. Are any of those issues present? If so, pick one of the issues from the list. Then, identify the location of the issue, from: (top-left, top-center, top-right, center-left, center-center, center-right, bottom-left, bottom-center, bottom-right, no specific location). Think step-by-step. Finally, output in the exact form:
+            Look at the list of issues provided. Are any of those issues present? If so, pick one of the issues from the list. Then, identify the location of the issue, from: (top-left, top-center, top-right, center-left, center-center, center-right, bottom-left, bottom-center, bottom-right, no specific location). Think step-by-step. Finally, you must output in the exact form:
+Issue: <exact string from the list>
+Location: <exact string from the list>
 
-            Issue: <exact string from the list>
-            Location: <exact string from the list>`,
+Please do not include any additional information.
+`,
           },
           {
             type: "image_url",
@@ -64,18 +65,43 @@ async function main() {
 
   console.log(response);
 
-  // Extract issues from output
+  /* ----------------------- Extract Issue and Location ----------------------- */
 
-  // TODO: Handle a 0 output
+  console.log(response.choices[0].message.content);
+  const responseAsLines = response.choices[0].message.content.split("\n");
+  const issue = responseAsLines[0].split(": ")[1];
+  const location = responseAsLines[1].split(": ")[1];
 
-  const output = response.choices[0].message.content;
-  const lines = output.split("\n");
-  console.log(lines);
-  const issue = lines[0].split(": ")[1];
-  const location = lines[1].split(": ")[1];
-  console.log(issue, location);
+  // TODO: If we get the wrong format, exit gracefully
 
-  // Ask GPT what text to use for the meme image
+  console.log(issue + "|" + location);
+
+  /* --------------------------- Choose a meme image -------------------------- */
+
+  // const mappings = {
+  //   "Too many fonts": "wonka",
+  //   "Fonts that don't match": "dbg",
+  //   "Too many colours": "wonka",
+  //   "Colours that don't match": "wonka",
+  //   "Inadequate contrast": "wonka",
+  //   "Poor padding": "wonka",
+  //   "Too little whitespace": "wonka",
+  //   "Too much whitespace": "wonka",
+  //   "Low-resolution images": "wonka",
+  //   "Images that don't make sense": "wonka",
+  //   "Text obscured by images": "wonka",
+  //   "Inconsistent alignment": "wonka",
+  //   "Lack of symmetry": "wonka",
+  //   "Excessive text length": "wonka",
+  //   "Overuse of text effects, like bold or italics": "wonka",
+  //   "Inconsistent icons": "wonka",
+  //   "Poor cropping": "wonka",
+  // };
+
+  const memeNames = ["wonka", "dbg", "jim", "worst"];
+  const memeName = memeNames[Math.floor(Math.random() * memeNames.length)];
+
+  /* ------------------------ Ask GPT for meme texts ------------------------ */
 
   const response2 = await robot.chat.completions.create({
     model: "gpt-4o",
@@ -85,14 +111,16 @@ async function main() {
         content: [
           {
             type: "text",
-            text: `You are a consultant who is the design equivalent of Gordon Ramsey. In a design you're reviewing, someone made the mistake of using too many colours. You are going to send them a meme based on this image to mock them. What should the top and bottom text be? Aim for 30 characters for each. Output in the format:            
+            text: `You are a consultant who is the design equivalent of Gordon Ramsey. In a design you're reviewing, someone made the following mistake: ${issue}.
+
+            You are going to send them a meme based on this image to mock them. What should the top and bottom text be? Aim for 30 characters for each. Please output in the exact format:            
 Top: <top text>
 Bottom: <bottom text>`,
           },
           {
             type: "image_url",
             image_url: {
-              url: `data:image/jpeg;base64,${encodedMeme}`,
+              url: `https://api.memegen.link/images/${memeName}/_/_.png`,
             },
           },
         ],
@@ -100,12 +128,11 @@ Bottom: <bottom text>`,
     ],
   });
 
-  // Get and sanitize the output text
+  /* ---------------------------- Generate the meme --------------------------- */
 
-  const output2 = response2.choices[0].message.content;
-  const lines2 = output2.split("\n");
-  const top = lines2[0].split(": ")[1];
-  const bottom = lines2[1].split(": ")[1];
+  const memeTextAsLines = response2.choices[0].message.content.split("\n");
+  const memeTop = memeTextAsLines[0].split(": ")[1];
+  const memeBottom = memeTextAsLines[1].split(": ")[1];
 
   function sanitizeString(str) {
     const replacements = {
@@ -135,12 +162,10 @@ Bottom: <bottom text>`,
     return str;
   }
 
-  // Create the meme using the API
-
   console.log(
-    `https://api.memegen.link/images/wonka/${sanitizeString(
-      top
-    )}/${sanitizeString(bottom)}.png`
+    `https://api.memegen.link/images/${memeName}/${sanitizeString(
+      memeTop
+    )}/${sanitizeString(memeBottom)}.png`
   );
 }
 
