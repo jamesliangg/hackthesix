@@ -9,7 +9,8 @@
                 "name": "Express",
                 "apiVersion": 1
             }
-        ]
+        ],
+        "renditionPreview": true
     },
     "entryPoints": [
         {
@@ -18,5 +19,9 @@
             "main": "index.html",
             "documentSandbox": "code.js"
         }
-    ]
+    ],
+    "permissions": {
+        "sandbox": ["allow-popups-to-escape-sandbox", "allow-popups", "allow-downloads"]
+    }
+
 }

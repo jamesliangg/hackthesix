@@ -19,7 +19,7 @@ function start() {
             rectangle.translation = { x: 10, y: 10 };
 
             // Define rectangle color.
-            const color = { red: 0.32, green: 0.34, blue: 0.89, alpha: 1 };
+            const color = { red: 0.82, green: 0.74, blue: 0.89, alpha: 1 };
 
             // Fill the rectangle with the color.
             const rectangleFill = editor.makeColorFill(color);
