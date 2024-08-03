@@ -215,3 +215,14 @@ fabric.properties
 # End of https://www.toptal.com/developers/gitignore/api/webstorm,visualstudiocode,pycharm
 
 .idea
+.env
+.mp4
+.mp3
+tiktok/audio/
+tiktok/videos/
+tiktok/screenshots/
+tiktok/lib/edit-video/temp/
+node_test/bokbok/audio/
+node_test/bokbok/videos/
+node_test/bokbok/screenshots/
+node_test/bokbok/lib/edit-video/temp/

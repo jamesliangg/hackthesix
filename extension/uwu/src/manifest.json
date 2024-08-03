@@ -1,6 +1,6 @@
 {
-    "testId": "28c613ed-e47e-4730-911a-dbad75d8c534",
-    "name": "Hackthesix",
+    "testId": "570e30de-d54a-40de-93a1-9ee9b9f792d0",
+    "name": "Uwu",
     "version": "1.0.0",
     "manifestVersion": 2,
     "requirements": {
@@ -9,17 +9,19 @@
                 "name": "Express",
                 "apiVersion": 1
             }
-        ]
+        ],
+        "renditionPreview": true
     },
     "entryPoints": [
         {
             "type": "panel",
             "id": "panel1",
             "main": "index.html",
-            "documentSandbox": "sandbox/code.js"
+            "documentSandbox": "code.js"
         }
     ],
     "permissions": {
         "sandbox": ["allow-popups-to-escape-sandbox", "allow-popups", "allow-downloads"]
     }
+
 }
