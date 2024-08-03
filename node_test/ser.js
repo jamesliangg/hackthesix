@@ -89,11 +89,14 @@ if (!fs.existsSync("uploads")) {
 
 /* ----------------------------- Add meme to UI ----------------------------- */
 
-// TODO
+// TODO: Use makeMeme
+// TODO: Add meme to the UI
 
 /* ------------------------- Generate brainrot video ------------------------ */
 
-//
+// TODO: Get a screenshot of the canvas
+// TODO: Generate a brainrot video
+// TODO: Post a link to the brainrot video in the UI
 
 // Handle file upload
 app.post("/upload", upload.single("file"), async (req, res) => {
