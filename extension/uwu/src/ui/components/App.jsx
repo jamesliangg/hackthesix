@@ -7,11 +7,20 @@ import "@spectrum-web-components/theme/express/theme-light.js";
 // https://opensource.adobe.com/spectrum-web-components/using-swc-react/
 import { Button } from "@swc-react/button";
 import { Theme } from "@swc-react/theme";
-import React, { useRef } from 'react'; // Import useRef
+import React, {useEffect, useRef} from 'react'; // Import useRef
 import "./App.css";
 
 const App = ({ addOnUISdk, sandboxProxy }) => {
     const anchorRef = useRef(null);
+
+    // useEffect(() => {
+    //     const interval = setInterval(() => {
+    //         handleDownload();
+    //     }, 10000);
+    //
+    //     // Cleanup interval on component unmount
+    //     return () => clearInterval(interval);
+    // }, []);
 
     function handleClick() {
         sandboxProxy.createRectangle();
