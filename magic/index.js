@@ -43,7 +43,7 @@ async function main() {
             - Inconsistent icons
             - Poor cropping
 
-            Attached is the original design & the updated version of the design. Pay close attention to the changes made between the designs.
+            Attached is the design.
             
             Look at the list of issues provided. Are any of those issues present? If so, pick one of the issues from the list. Then, identify the location of the issue, from: (top-left, top-center, top-right, center-left, center-center, center-right, bottom-left, bottom-center, bottom-right, no specific location). Think step-by-step. Finally, you must output in the exact form:
 Issue: <exact string from the list>
@@ -78,27 +78,28 @@ Please do not include any additional information.
 
   /* --------------------------- Choose a meme image -------------------------- */
 
-  const mappings = {
-    "Too many fonts": "wonka",
-    "Fonts that don't match": "wonka",
-    "Too many colours": "wonka",
-    "Colours that don't match": "wonka",
-    "Inadequate contrast": "wonka",
-    "Poor padding": "wonka",
-    "Too little whitespace": "wonka",
-    "Too much whitespace": "wonka",
-    "Low-resolution images": "wonka",
-    "Images that don't make sense": "wonka",
-    "Text obscured by images": "wonka",
-    "Inconsistent alignment": "wonka",
-    "Lack of symmetry": "wonka",
-    "Excessive text length": "wonka",
-    "Overuse of text effects, like bold or italics": "wonka",
-    "Inconsistent icons": "wonka",
-    "Poor cropping": "wonka",
-  };
+  // const mappings = {
+  //   "Too many fonts": "wonka",
+  //   "Fonts that don't match": "dbg",
+  //   "Too many colours": "wonka",
+  //   "Colours that don't match": "wonka",
+  //   "Inadequate contrast": "wonka",
+  //   "Poor padding": "wonka",
+  //   "Too little whitespace": "wonka",
+  //   "Too much whitespace": "wonka",
+  //   "Low-resolution images": "wonka",
+  //   "Images that don't make sense": "wonka",
+  //   "Text obscured by images": "wonka",
+  //   "Inconsistent alignment": "wonka",
+  //   "Lack of symmetry": "wonka",
+  //   "Excessive text length": "wonka",
+  //   "Overuse of text effects, like bold or italics": "wonka",
+  //   "Inconsistent icons": "wonka",
+  //   "Poor cropping": "wonka",
+  // };
 
-  const memeName = mappings[issue];
+  const memeNames = ["wonka", "dbg", "jim", "worst"];
+  const memeName = memeNames[Math.floor(Math.random() * memeNames.length)];
 
   /* ------------------------ Ask GPT for meme texts ------------------------ */
 
