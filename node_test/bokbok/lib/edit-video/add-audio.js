@@ -4,12 +4,13 @@ import fs from "fs";
 import path from 'path';
 
 export async function addAudio(title) {
-    let audioPath = `${process.cwd()}/audio/${title}.mp3`;
-    let imagePath = `${process.cwd()}/screenshots/${title}.png`;
-    let videoPath = `${process.cwd()}/videos/background.webm`;
-    let tempSegmentPath = `${process.cwd()}/lib/edit-video/temp/${title}_segment.mp4`;
-    let tempOverlayPath = `${process.cwd()}/lib/edit-video/temp/${title}_overlay.mp4`;
-    let finalOutputPath = `${process.cwd()}/lib/edit-video/temp/${title}.mp4`;
+    let audioPath = `${process.cwd()}/bokbok/audio/${title}.mp3`;
+    // let imagePath = `${process.cwd()}/screenshots/${title}.png`;
+    let imagePath = `${process.cwd()}/uploads/document.jpg`;
+    let videoPath = `${process.cwd()}/bokbok/videos/background.webm`;
+    let tempSegmentPath = `${process.cwd()}/bokbok/lib/edit-video/temp/${title}_segment.mp4`;
+    let tempOverlayPath = `${process.cwd()}/bokbok/lib/edit-video/temp/${title}_overlay.mp4`;
+    let finalOutputPath = `${process.cwd()}/bokbok/lib/edit-video/temp/${title}.mp4`;
 
     // Retry function
     function retryOperation(operation, maxRetries, delay) {

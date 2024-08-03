@@ -66,7 +66,7 @@ export async function convertTextToSpeech(string, name) {
                     });
 
                     // Save response data to file
-                    const filePath = `../audio/${name}.mp3`;
+                    const filePath = `${process.cwd()}/bokbok/audio/${name}.mp3`;
                     // fs.writeFileSync(filePath, Buffer.from(response.data));
                     const buffer = Buffer.from(await response.arrayBuffer());
                     await fs.promises.writeFile(filePath, buffer);

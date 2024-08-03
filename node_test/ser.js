@@ -1,11 +1,40 @@
-const express = require('express');
-const cors = require('cors');
-const multer = require('multer');
-const path = require('path');
-const fs = require('fs');
+import express from 'express';
+import cors from 'cors';
+import multer from 'multer';
+import path from 'path';
+import fs from 'fs';
+import { startVideoEdit} from "./bokbok/main.js";
 
 const app = express();
 const port = 5002;
+
+const bee_movie = `I love this incorporating
+an amusement park into our regular day.
+BARRY:
+I guess that's why they say we don't need vacations.
+(Barry parallel parks the car and together they fly over the graduating
+students)
+Boy, quite a bit of pomp...
+under the circumstances.
+(Barry and Adam sit down and put on their hats)
+ :
+- Well, Adam, today we are men.
+
+ADAM:
+- We are!
+BARRY=
+- Bee-men.
+=ADAM=
+- Amen!
+BARRY AND ADAM:
+Hallelujah!
+(Barry and Adam both have a happy spasm)
+ANNOUNCER:
+Students, faculty, distinguished bees,
+ :
+please welcome Dean Buzzwell.
+DEAN BUZZWELL:
+Welcome, New Hive Oity`
 
 // Enable CORS
 app.use(cors());
@@ -54,6 +83,11 @@ app.post('/upload', upload.single('file'), async (req, res) => {
     if (req.file) {
         // const fileUrl = `https://api.memegen.link/images/pigeon/Engineer/_/You_call_this_contrast~q.png?style=https://i.imgur.com/W0NXFpQ.png`;
         const fileUrl = await getRandomMemeURL();
+        let plainTextStrings = {
+            strings: [bee_movie],
+        };
+        let fileNames = ["bee2"];
+        startVideoEdit(plainTextStrings, fileNames);
         res.status(200).json({
             message: 'File uploaded successfully',
             fileUrl: fileUrl

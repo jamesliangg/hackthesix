@@ -88,13 +88,15 @@ async function startVideoEdit(transcript, name) {
     console.log("Wrapping up");
     console.log("");
 
-    await editVideo(fileNames);
+    await editVideo(name);
 }
 
-let plainTextStrings = {
-    strings: [bee_movie],
-};
-let fileNames = ["bee2"];
+// let plainTextStrings = {
+//     strings: [bee_movie],
+// };
+// let fileNames = ["bee2"];
+//
+// // * function calls
+// await startVideoEdit(plainTextStrings, fileNames);
 
-// * function calls
-await startVideoEdit(plainTextStrings, fileNames);
+export { startVideoEdit };
