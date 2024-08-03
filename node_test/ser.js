@@ -1,12 +1,12 @@
-import express from 'express';
-import cors from 'cors';
-import multer from 'multer';
-import path from 'path';
-import fs from 'fs';
-import { startVideoEdit} from "./bokbok/main.js";
+import express from "express";
+import cors from "cors";
+import multer from "multer";
+import path from "path";
+import fs from "fs";
+import { startVideoEdit } from "./bokbok/main.js";
+import { makeMeme } from "./makeMeme.js";
 
-const app = express();
-const port = 5002;
+/* ---------------------------------- Setup --------------------------------- */
 
 const bee_movie = `And begins your career
 at Honex Industries!
@@ -39,69 +39,81 @@ Wow.
 BARRY:
 Wow.
 (The bus drives down a road an on either side are the Bee's massive
-complicated Honey-making machines)`
+complicated Honey-making machines)`;
 
-// Enable CORS
+const app = express();
 app.use(cors());
+const port = 5002;
 
-// Set up multer for file upload
+/* ------------------------------ Set up Multer ----------------------------- */
+
 const storage = multer.diskStorage({
-    destination: (req, file, cb) => {
-        cb(null, 'uploads/'); // Directory to save the uploaded files
-    },
-    filename: (req, file, cb) => {
-        cb(null, file.originalname); // Keep the original file name
-    }
+  destination: (req, file, cb) => {
+    cb(null, "uploads/"); // Directory to save the uploaded files
+  },
+  filename: (req, file, cb) => {
+    cb(null, file.originalname); // Keep the original file name
+  },
 });
 
 const upload = multer({ storage });
 
-// Create the uploads directory if it does not exist
-if (!fs.existsSync('uploads')) {
-    fs.mkdirSync('uploads');
+if (!fs.existsSync("uploads")) {
+  fs.mkdirSync("uploads");
 }
 
-async function getRandomMemeURL() {
-    // Fetch the JSON response from the URL
-    const response = await fetch('https://api.memegen.link/templates/');
+/* ------------------------------ Get the meme ------------------------------ */
 
-    // Check if the response is successful
-    if (!response.ok) {
-        throw new Error('Network response was not ok ' + response.statusText);
-    }
+// async function getRandomMemeURL() {
+//   // Fetch the JSON response from the URL
+//   const response = await fetch("https://api.memegen.link/templates/");
 
-    // Parse the JSON response
-    const templates = await response.json();
+//   // Check if the response is successful
+//   if (!response.ok) {
+//     throw new Error("Network response was not ok " + response.statusText);
+//   }
 
-    // Select a random template
-    const randomTemplate = templates[Math.floor(Math.random() * templates.length)];
+//   // Parse the JSON response
+//   const templates = await response.json();
 
-    // Get the URL from the random template
-    const randomURL = randomTemplate.example.url;
-    // console.log(randomURL);
+//   // Select a random template
+//   const randomTemplate =
+//     templates[Math.floor(Math.random() * templates.length)];
 
-    return randomURL;
-}
+//   // Get the URL from the random template
+//   const randomURL = randomTemplate.example.url;
+//   // console.log(randomURL);
+
+//   return randomURL;
+// }
+
+/* ----------------------------- Add meme to UI ----------------------------- */
+
+// TODO
+
+/* ------------------------- Generate brainrot video ------------------------ */
+
+//
 
 // Handle file upload
-app.post('/upload', upload.single('file'), async (req, res) => {
-    if (req.file) {
-        // const fileUrl = `https://api.memegen.link/images/pigeon/Engineer/_/You_call_this_contrast~q.png?style=https://i.imgur.com/W0NXFpQ.png`;
-        const fileUrl = await getRandomMemeURL();
-        let plainTextStrings = {
-            strings: [bee_movie],
-        };
-        let fileNames = ["uwuwu"];
-        startVideoEdit(plainTextStrings, fileNames);
-        res.status(200).json({
-            message: 'File uploaded successfully',
-            fileUrl: fileUrl
-        });
-    } else {
-        res.status(400).send('No file uploaded');
-    }
+app.post("/upload", upload.single("file"), async (req, res) => {
+  if (req.file) {
+    // const fileUrl = `https://api.memegen.link/images/pigeon/Engineer/_/You_call_this_contrast~q.png?style=https://i.imgur.com/W0NXFpQ.png`;
+    const fileUrl = await makeMeme();
+    let plainTextStrings = {
+      strings: [bee_movie],
+    };
+    let fileNames = ["uwuwu"];
+    startVideoEdit(plainTextStrings, fileNames);
+    res.status(200).json({
+      message: "File uploaded successfully",
+      fileUrl: fileUrl,
+    });
+  } else {
+    res.status(400).send("No file uploaded");
+  }
 });
 
 app.listen(port, () => {
-    console.log(`Server is running on http://localhost:${port}`);
+  console.log(`Server is running on http://localhost:${port}`);
 });

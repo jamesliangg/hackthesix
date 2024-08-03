@@ -1,9 +1,9 @@
-const fs = require("fs");
-const path = require("path");
-const openai = require("openai");
+import fs from "fs";
+import path from "path";
+import openai from "openai";
 
 const robot = new openai({
-  apiKey: "",
+  apiKey: process.env.OPENAI_API_KEY,
 });
 
 /* ------------------------ Take the design as a PNG ------------------------ */
@@ -13,7 +13,7 @@ const encodedDesign = fs.readFileSync(pathToDesign, { encoding: "base64" });
 
 /* ------------------------------ Main function ----------------------------- */
 
-async function main() {
+export async function makeMeme() {
   /* --------------------- Ask GPT for Issue and Location --------------------- */
 
   const response = await robot.chat.completions.create({
@@ -162,11 +162,7 @@ Bottom: <bottom text>`,
     return str;
   }
 
-  console.log(
-    `https://api.memegen.link/images/${memeName}/${sanitizeString(
-      memeTop
-    )}/${sanitizeString(memeBottom)}.png`
-  );
+  return `https://api.memegen.link/images/${memeName}/${sanitizeString(
+    memeTop
+  )}/${sanitizeString(memeBottom)}.png`;
 }
-
-main();
