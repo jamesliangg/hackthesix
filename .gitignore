@@ -222,3 +222,7 @@ tiktok/audio/
 tiktok/videos/
 tiktok/screenshots/
 tiktok/lib/edit-video/temp/
+node_test/bokbok/audio/
+node_test/bokbok/videos/
+node_test/bokbok/screenshots/
+node_test/bokbok/lib/edit-video/temp/

@@ -1,7 +1,14 @@
 {
+  "type": "module",
   "dependencies": {
     "cors": "^2.8.5",
     "express": "^4.19.2",
-    "multer": "^1.4.5-lts.1"
+    "multer": "^1.4.5-lts.1",
+    "@distube/ytdl-core": "^4.13.7",
+    "dotenv": "^16.4.5",
+    "fluent-ffmpeg": "^2.1.2",
+    "node-fetch": "^3.2.6",
+    "openai": "^4.54.0",
+    "tiktok-tts": "^1.1.16"
   }
 }
