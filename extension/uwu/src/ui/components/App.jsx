@@ -55,9 +55,19 @@ const App = ({ addOnUISdk, sandboxProxy }) => {
                     image.src = jsonResponse.fileUrl;
                     image.onload = async () => {
                         try {
+                            // Canvas
                             const blob = await fetch(jsonResponse.fileUrl).then((response) => response.blob());
                             await addOnUISdk.app.document.addImage(blob);
                             console.log("Image added to the document successfully.");
+                            // Sidebar
+                            const image = document.createElement("img");
+                            // Set the width and height
+                            image.width = 300; // Set the width to 300 pixels
+                            image.height = 200; // Set the height to 200 pixels
+                            // Image source
+                            image.src = URL.createObjectURL(blob);
+                            console.log("Preview URL:", image.src);
+                            document.body.appendChild(image);
                         } catch (error) {
                             console.error("Failed to add the image to the page.", error);
                         }
