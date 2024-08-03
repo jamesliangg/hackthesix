@@ -12,9 +12,11 @@
   "license": "ISC",
   "dependencies": {
     "@distube/ytdl-core": "^4.13.7",
+    "dotenv": "^16.4.5",
     "fluent-ffmpeg": "^2.1.2",
     "node-fetch": "^3.2.6",
     "openai": "^4.54.0",
+    "tiktok-tts": "^1.1.16",
     "ytdl-core": "^4.11.5"
   },
   "devDependencies": {
