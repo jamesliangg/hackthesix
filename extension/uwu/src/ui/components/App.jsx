@@ -26,14 +26,20 @@ const App = ({ addOnUISdk, sandboxProxy }) => {
             });
 
             if (response && response[0] && response[0].blob) {
-                console.log("Renditions created:", response);
-                const downloadUrl = URL.createObjectURL(response[0].blob);
-                console.log("Download URL:", downloadUrl);
+                const blob = response[0].blob;
+                const formData = new FormData();
+                formData.append('file', blob, 'document.jpg'); // Append blob to FormData
 
-                // Set the href of the anchor element
-                if (anchorRef.current) {
-                    anchorRef.current.href = downloadUrl;
-                    anchorRef.current.style.display = 'block'; // Show the download button
+                // Send blob to server
+                const serverResponse = await fetch('http://localhost:5002/upload', {
+                    method: 'POST',
+                    body: formData,
+                });
+
+                if (serverResponse.ok) {
+                    console.log('File successfully uploaded');
+                } else {
+                    console.error('Failed to upload file');
                 }
             } else {
                 console.error('No blob found in response');
@@ -57,6 +63,7 @@ const App = ({ addOnUISdk, sandboxProxy }) => {
             renditions.forEach(rendition => {
                 const image = document.createElement("img");
                 image.src = URL.createObjectURL(rendition.blob);
+                console.log("Preview URL:", image.src);
                 document.body.appendChild(image);
             });
         } catch (error) {
