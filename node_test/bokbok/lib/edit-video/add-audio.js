@@ -2,6 +2,7 @@ import ffmpeg from "fluent-ffmpeg";
 import process from "process";
 import fs from "fs";
 import path from 'path';
+import sharp from 'sharp';
 
 export async function addAudio(title) {
     let audioPath = `${process.cwd()}/bokbok/audio/${title}.mp3`;
@@ -35,7 +36,7 @@ export async function addAudio(title) {
         execute();
     }
 
-// Define the operation
+    // Define the operation
     function processVideo() {
         return new Promise((resolve, reject) => {
             ffmpeg.ffprobe(audioPath, (err, audioMetadata) => {
@@ -54,8 +55,9 @@ export async function addAudio(title) {
                         return reject(err);
                     }
 
-                    const videoDuration = videoMetadata.format.duration;
-                    const maxStartTime = Math.max(0, videoDuration - maxDuration);
+                    const videoWidth = videoMetadata.streams[0].width;
+                    const videoHeight = videoMetadata.streams[0].height;
+                    const maxStartTime = Math.max(0, videoMetadata.format.duration - maxDuration);
                     const startTime = Math.random() * maxStartTime;
 
                     // Stage 1: Extract a random segment from the video
@@ -66,41 +68,54 @@ export async function addAudio(title) {
                         .on('end', () => {
                             console.log('Random segment extraction finished!');
 
-                            // Stage 2: Overlay the image on the extracted video segment
-                            ffmpeg(tempSegmentPath)
-                                .input(imagePath)
-                                .complexFilter([
-                                    {
-                                        filter: 'overlay',
-                                        options: { x: 10, y: 10 }
+                            // Create a resized temporary image
+                            const tempImagePath = `${process.cwd()}/bokbok/lib/edit-video/temp/${title}_resized.jpg`;
+                            sharp(imagePath)
+                                .resize(Math.floor(videoWidth * 0.5), Math.floor(videoHeight * 0.5), {
+                                    fit: 'inside'  // Ensures the image fits within the specified dimensions
+                                })
+                                .toFile(tempImagePath, (err) => {
+                                    if (err) {
+                                        console.error('Error resizing image:', err);
+                                        return reject(err);
                                     }
-                                ])
-                                .videoCodec('libx264')
-                                .on('end', () => {
-                                    console.log('Overlaying finished!');
 
-                                    // Stage 3: Replace the audio
-                                    ffmpeg(tempOverlayPath)
-                                        .input(audioPath)
-                                        .outputOptions('-map 0:v')
-                                        .outputOptions('-map 1:a')
-                                        .audioCodec('aac')
-                                        .videoCodec('copy')
+                                    // Stage 2: Overlay the resized image on the extracted video segment
+                                    ffmpeg(tempSegmentPath)
+                                        .input(tempImagePath)
+                                        .complexFilter([
+                                            {
+                                                filter: 'overlay',
+                                                options: { x: 10, y: 10 }
+                                            }
+                                        ])
+                                        .videoCodec('libx264')
                                         .on('end', () => {
-                                            console.log('Processing finished!');
-                                            resolve();
+                                            console.log('Overlaying finished!');
+
+                                            // Stage 3: Replace the audio
+                                            ffmpeg(tempOverlayPath)
+                                                .input(audioPath)
+                                                .outputOptions('-map 0:v')
+                                                .outputOptions('-map 1:a')
+                                                .audioCodec('aac')
+                                                .videoCodec('copy')
+                                                .on('end', () => {
+                                                    console.log('Processing finished!');
+                                                    resolve();
+                                                })
+                                                .on('error', (err) => {
+                                                    console.error('Error during audio replacement:', err);
+                                                    reject(err);
+                                                })
+                                                .save(finalOutputPath);
                                         })
                                         .on('error', (err) => {
-                                            console.error('Error during audio replacement:', err);
+                                            console.error('Error during overlay:', err);
                                             reject(err);
                                         })
-                                        .save(finalOutputPath);
-                                })
-                                .on('error', (err) => {
-                                    console.error('Error during overlay:', err);
-                                    reject(err);
-                                })
-                                .save(tempOverlayPath);
+                                        .save(tempOverlayPath);
+                                });
                         })
                         .on('error', (err) => {
                             console.error('Error during random segment extraction:', err);
