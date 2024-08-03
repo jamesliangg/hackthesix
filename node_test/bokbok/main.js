@@ -59,10 +59,6 @@ const sleep = (ms = 2000) => new Promise((r) => setTimeout(r, ms));
 
 // * Global variables
 let videoURL = "https://www.youtube.com/watch?v=RbVMiu4ubT0";
-let plainTextStrings = {
-    strings: [bee_movie],
-};
-let fileNames = ["bee2"];
 
 /**
  * prints confirmation that process has begun
@@ -72,14 +68,14 @@ let fileNames = ["bee2"];
  * calls downloadVideo function to utilize ytdl to download background video
  * calls editVideo function to utilize etro to stitch together video
  */
-async function startVideoEdit() {
+async function startVideoEdit(transcript, name) {
     console.log("Starting Video Edit, this might take a while");
     await sleep();
 
     // TODO : convert all text to speech
     console.log(`Converting text to speech`);
     console.log("");
-    // await convertTextToSpeech(plainTextStrings.strings[0], "bee");
+    // await convertTextToSpeech(transcript, name);
     await sleep();
 
     // * downloads video from youtube for background
@@ -91,8 +87,14 @@ async function startVideoEdit() {
     // TODO : finish audio then stitch audio to matching image, overlay them all ontop of background
     console.log("Wrapping up");
     console.log("");
+
     await editVideo(fileNames);
 }
 
+let plainTextStrings = {
+    strings: [bee_movie],
+};
+let fileNames = ["bee2"];
+
 // * function calls
-await startVideoEdit()
+await startVideoEdit(plainTextStrings, fileNames);
