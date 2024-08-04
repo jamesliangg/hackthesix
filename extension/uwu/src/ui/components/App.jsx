@@ -69,7 +69,7 @@ const App = ({ addOnUISdk, sandboxProxy }) => {
               // console.log("Preview URL:", image.src);
               // document.body.appendChild(image);
               // Canvas
-              // const blob = await fetch(jsonResponse.fileUrl).then((response) => response.blob());
+              const blob = await fetch(jsonResponse.fileUrl).then((response) => response.blob());
               // await addOnUISdk.app.document.addImage(blob);
               // console.log("Image added to the document successfully.");
 
