@@ -58,7 +58,8 @@ Use the stairs. Your father`
 const sleep = (ms = 2000) => new Promise((r) => setTimeout(r, ms));
 
 // * Global variables
-let videoURL = "https://www.youtube.com/watch?v=RbVMiu4ubT0";
+let videoURLS = ["https://www.youtube.com/watch?v=RbVMiu4ubT0", "https://www.youtube.com/watch?v=tCBOhczn6Ok", "https://www.youtube.com/watch?v=fs52UNawCqI"];
+// let videoURL = "https://www.youtube.com/watch?v=RbVMiu4ubT0";
 
 /**
  * prints confirmation that process has begun
@@ -79,9 +80,14 @@ async function startVideoEdit(transcript, name) {
     await sleep();
 
     // * downloads video from youtube for background
-    console.log(`Grabbing video from ${videoURL}`);
+    // Generate a random index between 0 and the length of the array - 1
+    const randomIndex = Math.floor(Math.random() * videoURLS.length);
+    // Pick the video URL at the random index
+    const randomVideoURL = videoURLS[randomIndex];
+
+    console.log(`Grabbing video from ${randomVideoURL}`);
     console.log("");
-    await downloadVideo(videoURL);
+    await downloadVideo(randomVideoURL);
     await sleep();
 
     // TODO : finish audio then stitch audio to matching image, overlay them all ontop of background
