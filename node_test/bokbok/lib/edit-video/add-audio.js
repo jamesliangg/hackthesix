@@ -56,12 +56,12 @@ export async function addAudio(title) {
 
                     const videoWidth = videoMetadata.streams[0].width;
                     const videoHeight = videoMetadata.streams[0].height;
-                    const maxStartTime = Math.max(0, 30);
-                    const startTime = Math.random() * maxStartTime;
+                    // const maxStartTime = Math.max(0, 30);
+                    // const startTime = Math.random() * maxStartTime;
 
                     // Stage 1: Extract a random segment from the video
                     ffmpeg(videoPath)
-                        .setStartTime(startTime)
+                        // .setStartTime(startTime)
                         .duration(maxDuration)
                         .videoCodec('libx264')
                         .on('end', () => {
