@@ -1,5 +1,184 @@
 .container {
-    margin: 24px;
+    width: 100vw;
+    height: 100vh;
+
+    margin: 0px;
     display: flex;
     flex-direction: column;
+
+    background-image: url("https://cdn.discordapp.com/attachments/1268969806514618388/1269459517507240056/background.png?ex=66b023ce&is=66aed24e&hm=5400155af81f8dba221a8c7145312e12274e2c9a2edff7308b31878cea9ae37d&");
 }
+
+
+.head1 {
+    /* top: 0px;
+    left: 24px; */
+    /* position: relative; */
+    /* border: 2px solid red; */
+}
+
+/* .head1 > div {
+    width: 180px;
+    height: 24px;
+    left: 0;
+    top: 3px;
+    position: absolute;
+    background: #F6FF00;
+} */
+
+.head1 {
+    /* left: 0;
+    top: 0;
+    position: absolute; */
+    color: #FF0000;
+    background-color: yellow;
+    font-size: 22px;
+    font-family: 'Roboto';
+    font-weight: 900;
+    word-wrap: break-word;
+    border: 2px solid red;
+}
+
+/* .highlightY {
+    background-color: yellow;
+    color: black;
+} */
+
+.head2 {
+    /* top: 40px;
+    left: 24px;
+    position: relative; */
+    border: 2px solid red;
+}
+
+.head2 {
+    /* width: 257px;
+    height: 13px; */
+    /* left: 0;
+    top: 1px;
+    position: absolute; */
+    background: #DADADA;
+}
+
+.head2 {
+    /* left: 0;
+    top: 0;
+    position: absolute; */
+    color: #FF0000;
+    font-size: 12px;
+    font-family: 'Roboto';
+    font-weight: 400;
+    word-wrap: break-word;
+}
+
+.memeHolder{
+    
+    width: 100%;
+    height: 100%;
+    background: #DADADA;
+    border-radius: 8;
+    border: 2px solid red;
+}
+
+
+.generate {
+    /* top: 232px;
+    left: 32px; */
+    position: absolute;
+    margin-top: 20px;
+    width: 100%;
+    text-align: center;
+}
+
+.generate .button-wrapper {
+    top: 546px; 
+    left: 5px;
+    display: inline-block;
+    position: relative;
+    width: 95px;
+    height: 40px;
+    background: #F6FF00;
+    border: 2px solid red;
+}
+
+.generate .button-wrapper .text {
+    position: absolute;
+    left: 12px;
+    top: 13px;
+    color: #FF0000;
+    font-size: 16px;
+    font-family: 'Roboto';
+    font-weight: 400;
+}
+
+.generate .button-wrapper .button-wrapper-video .text {
+    position: absolute;
+    right: 53px;
+    top: 13px;
+    color: #FF0000;
+    font-size: 16px;
+    font-family: 'Roboto';
+    font-weight: 400;
+}
+
+.generate .button-wrapper .icon-wrapper {
+    position: absolute;
+    left: 63px;
+    top: 15px;
+    width: 16px;
+    height: 16px;
+}
+
+.generate .button-wrapper .icon-wrapper .icon {
+    width: 15.24px;
+    height: 15.24px;
+    left: 0.38px;
+    top: 0.38px;
+    position: absolute;
+}
+
+.generate .button-wrapper .icon-wrapper .icon .line-1,
+.generate .button-wrapper .icon-wrapper .icon .line-2,
+.generate .button-wrapper .icon-wrapper .icon .line-3,
+.generate .button-wrapper .icon-wrapper .icon .line-4,
+.generate .button-wrapper .icon-wrapper .icon .line-5,
+.generate .button-wrapper .icon-wrapper .icon .line-6,
+.generate .button-wrapper .icon-wrapper .icon .line-7,
+.generate .button-wrapper .icon-wrapper .icon .line-8,
+.generate .button-wrapper .icon-wrapper .icon .line-9,
+.generate .button-wrapper .icon-wrapper .icon .line-10,
+.generate .button-wrapper .icon-wrapper .icon .line-11,
+.generate .button-wrapper .icon-wrapper .icon .line-12,
+.generate .button-wrapper .icon-wrapper .icon .line-13,
+.generate .button-wrapper .icon-wrapper .icon .line-14,
+.generate .button-wrapper .icon-wrapper .icon .line-15,
+.generate .button-wrapper .icon-wrapper .icon .line-16 {
+    position: absolute;
+    background: #000001;
+}
+
+/* Add specific positions and sizes for each line */
+.generate .button-wrapper .icon-wrapper .icon .line-1 { width: 0.76px; height: 12.95px; left: 14.48px; top: 1.52px; }
+.generate .button-wrapper .icon-wrapper .icon .line-2 { width: 12.95px; height: 0.76px; left: 1.52px; top: 14.48px; }
+.generate .button-wrapper .icon-wrapper .icon .line-3 { width: 0.76px; height: 12.19px; left: 12.95px; top: 0.76px; }
+.generate .button-wrapper .icon-wrapper .icon .line-4 { width: 2.29px; height: 7.61px; left: 9.90px; top: 2.29px; }
+.generate .button-wrapper .icon-wrapper .icon .line-5 { width: 9.14px; height: 1.53px; left: 2.29px; top: 9.14px; }
+.generate .button-wrapper .icon-wrapper .icon .line-6 { width: 0.76px; height: 0.77px; left: 9.14px; top: 7.62px; }
+.generate .button-wrapper .icon-wrapper .icon .line-7 { width: 0.76px; height: 0.76px; left: 8.39px; top: 8.39px; }
+.generate .button-wrapper .icon-wrapper .icon .line-8 { width: 3.05px; height: 3.04px; left: 7.62px; top: 3.05px; }
+.generate .button-wrapper .icon-wrapper .icon .line-9 { width: 0.77px; height: 0.77px; left: 7.62px; top: 7.62px; }
+.generate .button-wrapper .icon-wrapper .icon .line-10 { width: 0.76px; height: 0.76px; left: 6.86px; top: 6.86px; }
+.generate .button-wrapper .icon-wrapper .icon .line-11 { width: 0.76px; height: 0.76px; left: 6.10px; top: 6.09px; }
+.generate .button-wrapper .icon-wrapper .icon .line-12 { width: 1.53px; height: 0.76px; left: 4.57px; top: 5.34px; }
+.generate .button-wrapper .icon-wrapper .icon .line-13 { width: 0.76px; height: 0.76px; left: 3.81px; top: 6.09px; }
+.generate .button-wrapper .icon-wrapper .icon .line-14 { width: 0.76px; height: 0.76px; left: 3.05px; top: 6.86px; }
+.generate .button-wrapper .icon-wrapper .icon .line-15 { width: 9.14px; height: 0.77px; left: 2.29px; top: 1.52px; }
+.generate .button-wrapper .icon-wrapper .icon .line-16 { width: 1.53px; height: 7.61px; left: 1.52px; top: 2.29px; }
+
+/* Styles for the video button */
+.generate .button-wrapper-video .icon-wrapper .icon .line-1 { width: 0.77px; height: 11.43px; left: 14.47px; top: 0.76px; }
+.generate .button-wrapper-video .icon-wrapper .icon .line-2 { width: 13.71px; height: 3.05px; left: 0.76px; top: 12.19px; }
+.generate .button-wrapper-video .icon-wrapper .icon .line-3 { width: 8.38px; height: 5.33px; left: 4.57px; top: 3.81px; }
+.generate .button-wrapper-video .icon-wrapper .icon .line-4 { width: 11.43px; height: 0.76px; left: 3.05px; top: 0; }
+.generate .button-wrapper-video .icon-wrapper .icon .line-5 { width: 0.76px; height: 0.77px; left: 1.52px; top: 12.95px; }
+.generate .button-wrapper-video .icon-wrapper .icon .line-6 { width: 3.05px; height: 13.71px; left: 0; top: 0.76px; }
