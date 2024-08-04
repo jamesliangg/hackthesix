@@ -151,7 +151,7 @@ const App = ({ addOnUISdk, sandboxProxy }) => {
       <div className="container">
         <h1 class="head1">WOW nice design!</h1>
 
-        <h2 class="head2">kindly reminders of how nice your designs are :D</h2>
+        <h2 class="head2">kind reminders of how nice your designs are :D</h2>
 
         <div id="memeHolder">
           <div>MEME</div>
