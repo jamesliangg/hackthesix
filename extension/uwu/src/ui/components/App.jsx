@@ -55,19 +55,41 @@ const App = ({ addOnUISdk, sandboxProxy }) => {
                     image.src = jsonResponse.fileUrl;
                     image.onload = async () => {
                         try {
+                            // // Canvas
+                            // const blob = await fetch(jsonResponse.fileUrl).then((response) => response.blob());
+                            // await addOnUISdk.app.document.addImage(blob);
+                            // console.log("Image added to the document successfully.");
+                            // // Sidebar
+                            // const image = document.createElement("img");
+                            // // Set the width and height
+                            // image.width = 300; // Set the width to 300 pixels
+                            // image.height = 200; // Set the height to 200 pixels
+                            // // Image source
+                            // image.src = URL.createObjectURL(blob);
+                            // console.log("Preview URL:", image.src);
+                            // document.body.appendChild(image);
                             // Canvas
                             const blob = await fetch(jsonResponse.fileUrl).then((response) => response.blob());
                             await addOnUISdk.app.document.addImage(blob);
                             console.log("Image added to the document successfully.");
-                            // Sidebar
-                            const image = document.createElement("img");
+
+                            // Replace div with image
+                            const memeHolder = document.getElementById('memeHolder');
+                            const image = document.createElement('img');
                             // Set the width and height
                             image.width = 300; // Set the width to 300 pixels
                             image.height = 200; // Set the height to 200 pixels
                             // Image source
                             image.src = URL.createObjectURL(blob);
                             console.log("Preview URL:", image.src);
-                            document.body.appendChild(image);
+
+                            // Remove all child nodes of memeHolder
+                            while (memeHolder.firstChild) {
+                                memeHolder.removeChild(memeHolder.firstChild);
+                            }
+
+                            // Append the image to memeHolder
+                            memeHolder.appendChild(image);
                         } catch (error) {
                             console.error("Failed to add the image to the page.", error);
                         }
@@ -136,7 +158,7 @@ const App = ({ addOnUISdk, sandboxProxy }) => {
 
                 
                 <div className="generate">
-                    <div className="button-wrapper">
+                    <div className="button-wrapper" onClick={handleClick}>
                         <div className="text">Image</div>
                         <div className="icon-wrapper">
                         <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -170,7 +192,7 @@ const App = ({ addOnUISdk, sandboxProxy }) => {
 
                         </div>
                     </div>
-                    <div className="button-wrapper button-wrapper-video">
+                    <div className="button-wrapper button-wrapper-video" onClick={handleDownload}>
                         <div className="text">Video</div>
                         <div className="icon-wrapper">
                         <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
