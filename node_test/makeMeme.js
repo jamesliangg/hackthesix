@@ -162,7 +162,31 @@ Bottom: <bottom text>`,
     return str;
   }
 
-  return `https://api.memegen.link/images/${memeName}/${sanitizeString(
-    memeTop
-  )}/${sanitizeString(memeBottom)}.png`;
+  /* -------------------- Generate roast text for the video ------------------- */
+
+  const response3 = await robot.chat.completions.create({
+    model: "gpt-4o",
+    messages: [
+      {
+        role: "user",
+        content: [
+          {
+            type: "text",
+            text: `You are a design critic, with the personality of Gordon Ramsey, who came across a design with the fatal issue of ${issue}. Output an 80-word roast for the designer.`,
+          },
+        ],
+      },
+    ],
+  });
+
+  const response3out = response3.choices[0].message.content;
+
+  /* -------------------------------- Finalize -------------------------------- */
+
+  return [
+    `https://api.memegen.link/images/${memeName}/${sanitizeString(
+      memeTop
+    )}/${sanitizeString(memeBottom)}.png`,
+    response3out,
+  ];
 }

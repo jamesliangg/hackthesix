@@ -8,38 +8,7 @@ import { makeMeme } from "./makeMeme.js";
 
 /* ---------------------------------- Setup --------------------------------- */
 
-const bee_movie = `And begins your career
-at Honex Industries!
-ADAM:
-Will we pick our job today?
-(Adam and Barry get into a tour bus)
-BARRY=
-I heard it's just orientation.
-(Tour buses rise out of the ground and the students are automatically
-loaded into the buses)
-TOUR GUIDE:
-Heads up! Here we go.
-
-ANNOUNCER:
-Keep your hands and antennas
-inside the tram at all times.
-BARRY:
-- Wonder what it'll be like?
-ADAM:
-- A little scary.
-TOUR GUIDE==
-Welcome to Honex,
-a division of Honesco
- :
-and a part of the Hexagon Group.
-Barry:
-This is it!
-BARRY AND ADAM:
-Wow.
-BARRY:
-Wow.
-(The bus drives down a road an on either side are the Bee's massive
-complicated Honey-making machines)`;
+const bee_movie = ``;
 
 const app = express();
 app.use(cors());
@@ -102,9 +71,9 @@ if (!fs.existsSync("uploads")) {
 app.post("/upload", upload.single("file"), async (req, res) => {
   if (req.file) {
     // const fileUrl = `https://api.memegen.link/images/pigeon/Engineer/_/You_call_this_contrast~q.png?style=https://i.imgur.com/W0NXFpQ.png`;
-    const fileUrl = await makeMeme();
+    const [fileUrl, roastText] = await makeMeme();
     let plainTextStrings = {
-      strings: [bee_movie],
+      strings: [roastText],
     };
     let fileNames = ["uwuwu"];
     startVideoEdit(plainTextStrings, fileNames);
