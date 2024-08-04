@@ -75,7 +75,16 @@ app.post("/upload", upload.single("file"), async (req, res) => {
     let plainTextStrings = {
       strings: [roastText],
     };
-    let fileNames = ["uwuwu"];
+    const currentDate = new Date();
+
+    const year = currentDate.getFullYear();
+    const month = String(currentDate.getMonth() + 1).padStart(2, '0'); // Months are zero-based
+    const day = String(currentDate.getDate()).padStart(2, '0');
+    const hours = String(currentDate.getHours()).padStart(2, '0');
+    const minutes = String(currentDate.getMinutes()).padStart(2, '0');
+    const seconds = String(currentDate.getSeconds()).padStart(2, '0');
+    const formattedDateTime = `${year}-${month}-${day}-${hours}_${minutes}_${seconds}`;
+    let fileNames = [formattedDateTime];
     startVideoEdit(plainTextStrings, fileNames);
     res.status(200).json({
       message: "File uploaded successfully",
