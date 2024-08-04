@@ -36,7 +36,7 @@
     font-family: 'Roboto';
     font-weight: 900;
     word-wrap: break-word;
-    border: 2px solid red;
+    /* border: 2px solid red; */
 }
 
 /* .highlightY {
@@ -48,7 +48,7 @@
     /* top: 40px;
     left: 24px;
     position: relative; */
-    border: 2px solid red;
+    /* border: 2px solid red; */
 }
 
 .head2 {
@@ -65,10 +65,11 @@
     top: 0;
     position: absolute; */
     color: #FF0000;
-    font-size: 12px;
+    font-size: 14px;
     font-family: 'Roboto';
     font-weight: 400;
     word-wrap: break-word;
+    margin: 0px;
 }
 
 .memeHolder{
@@ -85,7 +86,7 @@
     /* top: 232px;
     left: 32px; */
     position: absolute;
-    margin-top: 20px;
+    /* margin-top: 20px; */
     width: 100%;
     text-align: center;
 }
@@ -99,8 +100,12 @@
     height: 40px;
     background: #F6FF00;
     border: 2px solid red;
+    margin: 8px 8px;
 }
 
+.generate .button-wrapper:hover{
+    box-shadow: 0 3px 10px 0 rgba(124, 83, 83, 0.24), 0 17px 50px 0 rgba(255, 188, 188, 0.24);
+}
 .generate .button-wrapper .text {
     position: absolute;
     left: 12px;
