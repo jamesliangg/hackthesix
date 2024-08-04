@@ -58,7 +58,7 @@ Use the stairs. Your father`
 const sleep = (ms = 2000) => new Promise((r) => setTimeout(r, ms));
 
 // * Global variables
-let videoURL = "https://www.youtube.com/watch?v=RbVMiu4ubT0";
+let videoURL = "https://www.youtube.com/watch?v=tCBOhczn6Ok";
 
 /**
  * prints confirmation that process has begun
