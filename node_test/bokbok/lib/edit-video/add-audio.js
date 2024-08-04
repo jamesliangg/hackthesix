@@ -6,7 +6,6 @@ import sharp from 'sharp';
 
 export async function addAudio(title) {
     let audioPath = `${process.cwd()}/bokbok/audio/${title}.mp3`;
-    // let imagePath = `${process.cwd()}/screenshots/${title}.png`;
     let imagePath = `${process.cwd()}/uploads/document.jpg`;
     let videoPath = `${process.cwd()}/bokbok/videos/background.webm`;
     let tempSegmentPath = `${process.cwd()}/bokbok/lib/edit-video/temp/${title}_segment.mp4`;
@@ -71,14 +70,21 @@ export async function addAudio(title) {
                             // Create a resized temporary image
                             const tempImagePath = `${process.cwd()}/bokbok/lib/edit-video/temp/${title}_resized.jpg`;
                             sharp(imagePath)
-                                .resize(Math.floor(videoWidth * 0.5), Math.floor(videoHeight * 0.5), {
+                                .resize(Math.floor(videoWidth * 0.7), Math.floor(videoHeight * 0.7), {
                                     fit: 'inside'  // Ensures the image fits within the specified dimensions
                                 })
-                                .toFile(tempImagePath, (err) => {
+                                .toFile(tempImagePath, (err, info) => {
                                     if (err) {
                                         console.error('Error resizing image:', err);
                                         return reject(err);
                                     }
+
+                                    const imageWidth = info.width;
+                                    const imageHeight = info.height;
+
+                                    // Calculate coordinates to center the image
+                                    const x = Math.floor((videoWidth - imageWidth) / 2);
+                                    const y = Math.floor((videoHeight - imageHeight) / 8);
 
                                     // Stage 2: Overlay the resized image on the extracted video segment
                                     ffmpeg(tempSegmentPath)
@@ -86,7 +92,7 @@ export async function addAudio(title) {
                                         .complexFilter([
                                             {
                                                 filter: 'overlay',
-                                                options: { x: 10, y: 10 }
+                                                options: { x: x, y: y }
                                             }
                                         ])
                                         .videoCodec('libx264')
@@ -128,8 +134,8 @@ export async function addAudio(title) {
     }
 
     // Call the retry function
-    const maxRetries = 5;  // Set the maximum number of retries
-    const retryDelay = 3000;  // Set the delay between retries in milliseconds
+    const maxRetries = 10;  // Set the maximum number of retries
+    const retryDelay = 1000;  // Set the delay between retries in milliseconds
 
     retryOperation(processVideo, maxRetries, retryDelay);
 }

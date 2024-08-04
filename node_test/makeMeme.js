@@ -1,19 +1,20 @@
-const fs = require("fs");
-const path = require("path");
-const openai = require("openai");
+import fs from "fs";
+import path from "path";
+import openai from "openai";
+import process from "process";
 
 const robot = new openai({
-  apiKey: "",
+  apiKey: process.env.OPENAI_API_KEY,
 });
 
 /* ------------------------ Take the design as a PNG ------------------------ */
 
-const pathToDesign = path.join(process.env.HOME, "Desktop", "example.png");
+const pathToDesign = path.join(`${process.cwd()}/uploads/document.jpg`);
 const encodedDesign = fs.readFileSync(pathToDesign, { encoding: "base64" });
 
 /* ------------------------------ Main function ----------------------------- */
 
-async function main() {
+export async function makeMeme() {
   /* --------------------- Ask GPT for Issue and Location --------------------- */
 
   const response = await robot.chat.completions.create({
@@ -162,11 +163,31 @@ Bottom: <bottom text>`,
     return str;
   }
 
-  console.log(
+  /* -------------------- Generate roast text for the video ------------------- */
+
+  const response3 = await robot.chat.completions.create({
+    model: "gpt-4o",
+    messages: [
+      {
+        role: "user",
+        content: [
+          {
+            type: "text",
+            text: `You are a design critic, with the personality of Gordon Ramsey, who came across a design with the fatal issue of ${issue}. Output an 80-word roast for the designer.`,
+          },
+        ],
+      },
+    ],
+  });
+
+  const response3out = response3.choices[0].message.content;
+
+  /* -------------------------------- Finalize -------------------------------- */
+
+  return [
     `https://api.memegen.link/images/${memeName}/${sanitizeString(
       memeTop
-    )}/${sanitizeString(memeBottom)}.png`
-  );
+    )}/${sanitizeString(memeBottom)}.png`,
+    response3out,
+  ];
 }
-
-main();
