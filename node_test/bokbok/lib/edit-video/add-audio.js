@@ -134,7 +134,7 @@ export async function addAudio(title) {
     }
 
     // Call the retry function
-    const maxRetries = 5;  // Set the maximum number of retries
+    const maxRetries = 10;  // Set the maximum number of retries
     const retryDelay = 1000;  // Set the delay between retries in milliseconds
 
     retryOperation(processVideo, maxRetries, retryDelay);

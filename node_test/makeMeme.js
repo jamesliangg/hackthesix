@@ -1,6 +1,7 @@
 import fs from "fs";
 import path from "path";
 import openai from "openai";
+import process from "process";
 
 const robot = new openai({
   apiKey: process.env.OPENAI_API_KEY,
@@ -8,7 +9,7 @@ const robot = new openai({
 
 /* ------------------------ Take the design as a PNG ------------------------ */
 
-const pathToDesign = path.join(process.env.HOME, "Desktop", "example.png");
+const pathToDesign = path.join(`${process.cwd()}/uploads/document.jpg`);
 const encodedDesign = fs.readFileSync(pathToDesign, { encoding: "base64" });
 
 /* ------------------------------ Main function ----------------------------- */
