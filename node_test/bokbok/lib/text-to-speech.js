@@ -1,4 +1,4 @@
-import fs from "fs";
+import { promises as fs } from 'fs';
 import util from "util";
 import { OpenAI } from "openai";
 import dotenv from "dotenv";
@@ -42,6 +42,7 @@ ADAM:
 BARRY:
 - A little. Special day, graduation.`;
 
+
 export async function convertTextToSpeech(string, name) {
     const client = new OpenAI(process.env.OPENAI_API_KEY);
 
@@ -51,6 +52,7 @@ export async function convertTextToSpeech(string, name) {
 
         let charCount = 0;
         let textChunk = "";
+        const filePath = `${process.cwd()}/bokbok/audio/${name}.mp3`;
 
         if (newArr) {
             for (let n = 0; n < newArr.length; n++) {
@@ -66,23 +68,17 @@ export async function convertTextToSpeech(string, name) {
                     });
 
                     // Save response data to file
-                    const filePath = `${process.cwd()}/bokbok/audio/${name}.mp3`;
-                    // fs.writeFileSync(filePath, Buffer.from(response.data));
                     const buffer = Buffer.from(await response.arrayBuffer());
-                    await fs.promises.writeFile(filePath, buffer);
+                    await fs.appendFile(filePath, buffer);
 
                     charCount = 0;
                     textChunk = "";
                 }
             }
-        } else {
-            return;
         }
     }
+
     await getSpeech(string, name);
 }
-
-// Uncomment the line below to check if the API key is loaded correctly
-// console.log(process.env.OPENAI_API_KEY);
 
 // convertTextToSpeech(bee_movie, "bee2");

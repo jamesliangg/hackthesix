@@ -173,7 +173,7 @@ Bottom: <bottom text>`,
         content: [
           {
             type: "text",
-            text: `You are a design critic, with the personality of Gordon Ramsey, who came across a design with the fatal issue of ${issue}. Output an 80-word roast for the designer.`,
+            text: `You are a design critic, with the personality of Gordon Ramsey, who came across a design with the fatal issue of ${issue}. Output an 160-word roast for the designer.`,
           },
         ],
       },
